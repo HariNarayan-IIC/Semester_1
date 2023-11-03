@@ -19,5 +19,4 @@ void main(){
     n= n - first* place;
     n= n + last* place;
     printf("The number after swapping first and last digit is %d", n);
-
 }

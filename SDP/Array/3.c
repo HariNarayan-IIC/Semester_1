@@ -19,8 +19,10 @@ void main(){
     scanf("%d", &n);
     
     //Method 1
+    //If we only want to display octal equivalent value, then using format specifier is the best option.
     printf("Octal equivalent of %d is %o\n", n, n);
     
     //Method 2
+    //In case we want to use the octal value somewhere in the code, then defining a function would be the way to go.
     printf("Octal equivalent of %d is %d", n, dec_oct(n));
 }

@@ -20,6 +20,11 @@ class node{
         this->next= NULL;
     }
 
+    node(int data, node* next){
+        this->data= data;
+        this->next= next;
+    }
+
     //Destructor
     ~node(){
         cout<< "node destructed"<< endl;
@@ -78,6 +83,7 @@ class linked_list{
         }
     }
 
+
    //Linked list methods: 
 
     void insertAtHead(int data){
@@ -87,12 +93,21 @@ class linked_list{
         this->length++;
     } //Function to insert new node at the head of linked list
 
+
     void insertAtTail(int data){
         node* temp= new node(data);
         this->tail->next= temp;
         this->tail= temp;
         this->length++;
     } //Function to insert new node at the tail of linked list
+
+
+    void insertAtTail(int data, node* next){
+        node* temp= new node(data, next);
+        this->tail->next= temp;
+        this->tail= temp;
+        this->length++;
+    }
 
     void insert(int index, int data){
         if (index== 0){
@@ -117,6 +132,7 @@ class linked_list{
         }    
     } // Function to insert new node anywhere in the linked list
 
+
     void modify(int index, int data){
         if (length== 0){
             cout<< "No node to modify"<< endl<< "call InsertAtHead() to insert first node."<< endl;
@@ -133,6 +149,7 @@ class linked_list{
         ptr->data= data;
     } // Function to modify data of existig node using its index number
 
+
     void print(){
         node* ptr= this->head;
         while (ptr!= NULL){
@@ -141,6 +158,7 @@ class linked_list{
         }
         cout<< endl;
     } // Function to print the entire linked list
+
 
     void delete_node(int index){
         if (this->length== 0){
@@ -171,7 +189,8 @@ class linked_list{
 
     } // Function to delete a node from anywhere in the linked list using index
 
-    int fetchData(int index){
+
+    int fetchData(int index, node* &pointer){
         if (index<0 || index> this->length-1){
             cout<< "Index out of range"<< endl;
             return -1;
@@ -180,8 +199,32 @@ class linked_list{
         for (int i= 0; i< index; i++){
             ptr= ptr->next;
         }
+        pointer= ptr;
         return ptr->data;
-    }
+    } // Function to return data at any index
+
+
+    bool detectLoop(){
+        node* slow= this->head;
+        node* fast= this->head;
+        while(fast!= NULL){
+            if (slow== fast){
+                slow= this->head;
+                while(slow!= fast){
+                    slow= slow->next;
+                    fast= fast->next;
+                }
+                cout<< "Loop detected at "<<slow->data << endl;
+                return 1;
+            }
+
+            slow= slow->next;
+            fast= fast->next;
+            if( fast!= NULL){
+                fast= fast->next;
+            }
+        }
+    } //Function to detect loop in linked list
 };
 
 int main(){
@@ -200,7 +243,6 @@ int main(){
     A.print();
     cout<<"Length= "<< A.length<< endl;
 
-    cout<<A.fetchData(2)<< endl;
 
     A.insertAtTail(5);
     A.print();
@@ -215,6 +257,12 @@ int main(){
     A.print();
     cout<<"Length= "<< A.length<< endl;
 
+    node* pointer;
+    cout<<A.fetchData(2, pointer)<< endl;
+
+    A.insertAtTail(12, pointer);
+    
+    A.detectLoop();
 
     return 0;
 }

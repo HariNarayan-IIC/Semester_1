@@ -25,6 +25,7 @@ public:
             delete[] matrix[i];
         }
         delete[] matrix;
+        cout<< "Deleted a matrix"<< endl;
     }
 
     // Method to set the value of an individual element in the matrix

@@ -18,6 +18,10 @@ void reverse(){
 
 int main(){
     fptr1= fopen("abc.txt", "r");
+    if (fptr1== NULL){
+        printf("File does not exist!!");
+        return 1;
+    }
     fptr2= fopen("xyz.txt", "w");
     
     reverse();

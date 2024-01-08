@@ -33,8 +33,8 @@ void mergeSort(int *arr, int l, int r){
     int len1= mid- l +1;
     int len2= r- mid;
     
-    int left[len1];
-    int right[len2];
+    int* left= new int[len1];
+    int* right= new int[len2];
 
     for (int i= 0; i< len1; i++){
         left[i]= arr[l++];
@@ -47,6 +47,9 @@ void mergeSort(int *arr, int l, int r){
     mergeSort(right, 0, len2-1);
 
     merge(left, len1, right, len2, arr);
+
+    delete left;
+    delete right;
 }
 
 void printArr(int* arr, int len){
